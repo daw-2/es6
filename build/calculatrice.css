@@ -1,0 +1,17 @@
+.max-w {
+    max-width: 200px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+button {
+    width: 100%;
+    margin: 5px;
+}
