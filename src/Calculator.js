@@ -21,34 +21,59 @@ export default class Calculator {
             button.addEventListener('click', event => {
                 let value = event.target.textContent;
 
-                if ('.' === value && !this.operator) {
-                    if (!this.displayValue.includes('.')) {
-                        this.displayValue += '.';
-                    }
+                if ('AC' === value) {
+                    this.handleClear();
+                } else if ('.' === value && !this.operator) {
+                    this.handleDot();
                 } else if (this.isOperator(value)) {
-                    if (this.hasSecondOperand) {
-                        this.firstOperand = this.calculation[this.operator](this.firstOperand, parseFloat(this.displayValue));
-                        this.displayValue = String(this.firstOperand);
-                        this.hasSecondOperand = false;
-                    }
-
-                    this.firstOperand = parseFloat(this.displayValue);
-                    this.operator = value;
+                    this.handleOperator(value);
                 } else if (!this.isOperator(value)) {
-                    if (this.firstOperand && !this.hasSecondOperand) {
-                        this.displayValue = '0';
-                        this.hasSecondOperand = true;
-                    }
-
-                    this.displayValue = '0' === this.displayValue ? value : this.displayValue + value;
+                    this.handleDigit(value);
                 }
 
-                document.querySelector('#result').textContent = this.displayValue;
+                this.updateDisplay();
             });
         }
     }
 
+    handleClear() {
+        this.displayValue = '0';
+        this.firstOperand = null;
+        this.hasSecondOperand = false;
+        this.operator = null;
+    }
+
+    handleDot() {
+        if (!this.displayValue.includes('.')) {
+            this.displayValue += '.';
+        }
+    }
+
+    handleDigit(value) {
+        if (this.firstOperand && !this.hasSecondOperand) {
+            this.displayValue = '0';
+            this.hasSecondOperand = true;
+        }
+
+        this.displayValue = '0' === this.displayValue ? value : this.displayValue + value;
+    }
+
+    handleOperator(value) {
+        if (this.hasSecondOperand) {
+            this.firstOperand = this.calculation[this.operator](this.firstOperand, parseFloat(this.displayValue));
+            this.displayValue = String(this.firstOperand);
+            this.hasSecondOperand = false;
+        }
+
+        this.firstOperand = parseFloat(this.displayValue);
+        this.operator = value;
+    }
+
     isOperator(value) {
         return this.operators.includes(value);
+    }
+
+    updateDisplay() {
+        document.querySelector('#result').textContent = this.displayValue;
     }
 }
