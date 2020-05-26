@@ -1,23 +1,9 @@
 // let test = require('./test');
-import { test } from './test';
+import helpers from './helpers';
+import Vehicule from './models/Vehicule';
 
-class Vehicule {
-    constructor(color) {
-        this._color = color;
-    }
-
-    get color() {
-        console.log('Getter');
-        return `<div>
-            La voiture est ${this._color}
-        </div>`;
-    }
-
-    set color(color) {
-        console.log('Setter');
-        this._color = color;
-    }
-}
+helpers.fn1();
+helpers.fn2();
 
 class Car extends Vehicule {
 
