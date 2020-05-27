@@ -46,7 +46,7 @@ User.findAll().then(users => {
     users.map(user => {
         let li = document.createElement('li');
         li.textContent = user.username;
-        li.addEventListener('click', User.findAllPosts.bind(null, user.id));
+        li.addEventListener('click', User.findAllPosts.bind(null, user.id, li));
         ul.appendChild(li);
     });
 });
