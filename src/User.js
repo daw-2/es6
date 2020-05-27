@@ -9,7 +9,7 @@ export default class User {
         let promise = axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${id}`).then(response => response.data);
 
         if (node) {
-            let tagName = node.lastChild.tagName;
+            let tagName = node.lastChild ? node.lastChild.tagName : null;
             if (tagName && tagName.toLowerCase() === 'ul') {
                 // node.children[0].remove();
                 return;
@@ -28,8 +28,6 @@ export default class User {
             });
 
             node.addEventListener('click', () => ul.remove(), { once: true });
-
-            return;
         }
 
         return promise;

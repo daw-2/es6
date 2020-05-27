@@ -2,6 +2,8 @@ import gulp from 'gulp';
 import browserify from 'browserify';
 import buffer from 'vinyl-buffer';
 import source from 'vinyl-source-stream';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 gulp.task('default', () => {
     return browserify('src/app.js')
