@@ -36,4 +36,20 @@ let calculator = new Calculator();
 // Si c'est un chiffre, on l'ajoute au chiffre précédent pour faire
 // un nombre sino, on stocke l'opérateur.
 
-calculator.init();
+// calculator.init();
+
+import User from './User';
+
+User.findAll().then(users => {
+    const ul = document.getElementById('users');
+
+    users.map(user => {
+        let li = document.createElement('li');
+        li.textContent = user.username;
+        li.addEventListener('click', User.findAllPosts.bind(null, user.id));
+        ul.appendChild(li);
+    });
+});
+
+// Code qui continue...
+console.log('ici');
